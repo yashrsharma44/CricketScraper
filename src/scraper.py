@@ -1,5 +1,6 @@
 from utils import getPage, getHeader, getLinks, getSummary, getScoreCard, getTestLinks, finalScore,matchHeader 
 import click
+import sys
 from bs4 import BeautifulSoup as BS
 
 
@@ -24,10 +25,10 @@ def display_message():
 	
 	click.echo(click.style('The Live Matches Currently going on are :', fg='yellow'))
 	for index,match in enumerate(matches):
-		if index < 10:
-			click.secho('0{} | {} '.format(index, match), fg='yellow')
+		if index+1 <10:
+			click.secho('0{} | {} '.format(index+1, match), fg='yellow')
 		else:
-			click.secho('{} | {} '.format(index, match), fg='yellow')
+			click.secho('{} | {} '.format(index+1, match), fg='yellow')
 @click.command()
 @click.option('--ch', default=1, help='Enter the channel number with --ch to display the summary')
 def printSummary(ch):
@@ -94,19 +95,21 @@ def printScoreCard(ch):
 
 	soup = getPage()
 	links = getLinks(soup)
-
+	
 	headers = getHeader(soup)
 	matches = matchHeader(headers)
-
-	link = links[ch-1].find_all('a')[2]['href']
-	scorelinks = getTestLinks(link)
-	
+	try:
+		link = links[ch-1].find_all('a')[2]['href']
+		scorelinks = getTestLinks(link)
+	except IndexError:
+		click.secho('Score Card not Available !!',fg='red')
+		sys.exit()	
 	click.secho('{}'.format(matches[ch-1]), fg='yellow')
 	
 	for link in scorelinks:
 		data = getScoreCard(link)
 		displayline=None
-		click.secho(' Batsman            |R(B)      | 4 | 6   | S/R',fg='blue')
+		click.secho(' Batsman            |   R(B)     | 4 | 6   | S/R',fg='blue')
 		for player in data:
 			details = player.strings
 			
@@ -118,7 +121,7 @@ def printScoreCard(ch):
 				six = next(details)
 				sr = next(details)
 				text = '{}'.format(name)+' '*(20-len(name))+'| {}({})'.format(run,ball)\
-				+' '*(7-len(run)-len(ball))+'| {} | {} '.format(four,six)+' '*(4-len(four)-len(six))+'| {}'.format(four,six,sr)
+				+' '*(9-len(run)-len(ball))+'| {} | {} '.format(four,six)+' '*(4-len(four)-len(six))+'| {}'.format(four,six,sr)
 				click.secho(text, fg='red')
 			except StopIteration:
 				break
@@ -130,4 +133,4 @@ def printScoreCard(ch):
 		click.secho('_'*(len(text)) ,fg='red')
 
 if __name__ == '__main__':
-	display_message()
+	printScoreCard()
