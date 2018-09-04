@@ -27,3 +27,16 @@ def getSummary(link):
 	soup = BS(page.content, 'html.parser')
 	tabledata = soup.find_all('td', class_="cbz-grid-table-fix")
 	return tabledata
+
+def getTestLinks(link):
+	soup = getScorePage(link)
+	links = getLinks(soup)
+	scores = links[1].find_all('a')
+	scorelink = [i['href'] for i in scores]
+
+	return scorelink
+
+def getScorePage(link):
+	page = requests.get('https://m.cricbuzz.com/'+link)
+	soup = BS(page.content, 'html.parser')
+	return soup
