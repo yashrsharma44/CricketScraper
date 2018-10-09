@@ -7,6 +7,7 @@ This CLI, is used to scrape cricket scorecard.
 * cd into the directory, containing the setup.py file
 * Type `pip install editable .`
 * Voila, your CLI will be installed.
+* After that, cd into src, and run `python scraper.py`
 
 ## Features
 * It contains a main menu, to choose the following options - 
