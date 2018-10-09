@@ -1,12 +1,13 @@
-from utils import getPage, getHeader, getLinks, getSummary, getScoreCard, getTestLinks, finalScore,matchHeader 
-import click
 import sys
-from bs4 import BeautifulSoup as BS
+import click
+
 import scorecard
 
+from util.utils import getPage, getHeader, getLinks, getSummary, getScoreCard, getTestLinks, finalScore,matchHeader 
+from bs4 import BeautifulSoup as BS
 
-@click.command()
-@click.option('--ch', default=1, help='Enter the channel number with --ch to display the summary')
+
+
 def printSummary(ch):
 	'''
 	This method takes a channel number,

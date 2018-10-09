@@ -1,10 +1,10 @@
-from utils import getPage, getHeader, getLinks, getSummary, getScoreCard, getTestLinks, finalScore,matchHeader 
-import click
 import sys
-from bs4 import BeautifulSoup as BS
+import click
 
-@click.command()
-@click.option('--ch', default=1, help='Enter the channel number with --ch for scorecard')
+from bs4 import BeautifulSoup as BS
+from util.utils import getPage, getHeader, getLinks, getSummary, getScoreCard, getTestLinks, finalScore,matchHeader 
+
+
 def printScoreCard(ch):
 	'''
 	This method takes in a channel number,

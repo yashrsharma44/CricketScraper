@@ -1,7 +1,8 @@
+import click
 
-
-
-
+from display import display_message
+from summary import printSummary
+from scorecard import printScoreCard
 
 if __name__ == '__main__':
 	click.secho('Please enter the choices:')
@@ -16,6 +17,8 @@ if __name__ == '__main__':
 	if opt == 1:
 		display_message()
 	elif opt == 2:
-		printSummary(opt)
+		ch = click.prompt('Enter the Channel number',type=int)
+		printSummary(ch)
 	else:
-		printScoreCard(opt)
+		ch = click.prompt('Enter the Channel number',type=int)
+		printScoreCard(ch)

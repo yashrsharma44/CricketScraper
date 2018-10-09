@@ -1,5 +1,7 @@
-from bs4 import BeautifulSoup as BS
 import requests
+
+from bs4 import BeautifulSoup as BS
+
 
 def matchHeader(headers):
 	'''

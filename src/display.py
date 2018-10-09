@@ -1,6 +1,7 @@
-from utils import getPage, getHeader, getLinks, getSummary, getScoreCard, getTestLinks, finalScore,matchHeader 
-import click
 import sys
+import click
+
+from util.utils import getPage, getHeader, getLinks, getSummary, getScoreCard, getTestLinks, finalScore,matchHeader 
 from bs4 import BeautifulSoup as BS
 
 @click.command()
